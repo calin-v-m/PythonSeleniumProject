@@ -1,9 +1,12 @@
 from selenium import webdriver
 import time
+import datetime
 
 driver = webdriver.Chrome()
 driver.maximize_window()
 driver.get("https://www.seleniumeasy.com/")
+
+
 
 
 def navigate_to_subscribe():
@@ -38,6 +41,7 @@ def fill_fields_and_submit_info():
     time.sleep(1)
     lName = driver.find_element_by_css_selector("#MERGE2")
     lName.send_keys("CalinLastName")
+
     time.sleep(1)
     return
 
@@ -79,9 +83,16 @@ my_list = get_num_of_windows()
 driver.switch_to.window(my_list[1])
 assert_on_window_title(driver.current_url)
 fill_fields_and_submit_info()
+
+d = datetime.datetime.now()
+x="{:%d%B%Y}".format(d)
+print(x)
+driver.save_screenshot("{}.png".format(x))
+
 send_info_for_subscribe()
 my_text = assert_if_we_are_human()
 driver.quit()
+
 write_in_text_file()
 read_from_text_file_and_print()
 
